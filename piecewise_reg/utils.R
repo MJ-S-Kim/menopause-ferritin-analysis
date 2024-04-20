@@ -82,7 +82,7 @@ linear_spline <- function(data,vars,location){
                         'Segment 1: P value', 'Segment 2: P value', 'Segment 3: P value',
                         'Age: P value', 'Education: P value', 'Marital status: P value', 'Parous: P value', 'Medication: P value',
                         'Segment 1 vs 2', 'Segment 1 vs 3', 'Segment 2 vs 3', 'Overall P value', 'Linear vs Stepwise')
-  result_name <- paste0(location,'_result.csv')
+  result_name <- paste0(location,'piecewise_result.csv')
   write.csv(result, result_name)
   return(result)
 }
