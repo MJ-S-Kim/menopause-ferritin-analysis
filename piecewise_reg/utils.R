@@ -11,6 +11,7 @@ library('GGally')
 library(lmerTest)
 library(car)
 library(lmtest)
+library(gridExtra)
 
 linear_spline <- function(data, var){
   #This function is for piecewise regression with linear spline with menopause data.
@@ -82,14 +83,12 @@ linear_spline_plot <- function(data, var, ylab){
     scale_x_continuous(breaks=seq(min(data$fmp), max(data$fmp), 1)) +
     scale_linetype_manual(name = "", labels = c("Piecewise Linear Regression","Annual means (95% CI)"), values = c(1,3)) +
     scale_shape_manual(name = "", labels = c("Piecewise Linear Regression","Annual means (95% CI)"), values = c(15, 19)) + 
-    theme(legend.position = "bottom") + xlab('Years Before/After FMP') + ylab(ylab)
-
+    theme(legend.position = "bottom") + xlab('Years Before/After FMP') + ylab(ylab) +
+    ggtitle(ylab) + 
+    theme(plot.title = element_text(hjust = 0.5,size=20,face='bold'))
   return(p)
 }
 
-
-
- 
 linear_spline_total <- function(data,vars,location){
   
   #This function is for piecewise regression with linear spline with menopause data.
