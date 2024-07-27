@@ -1,0 +1,22 @@
+# requirements.R
+if (!requireNamespace("remotes", quietly = TRUE)) {
+  install.packages("remotes")
+}
+
+remotes::install_version("forestplot", version = "3.1.3")
+remotes::install_version("tidyverse", version = "2.0.0")
+remotes::install_version("ggplot2", version = "3.5.1")
+remotes::install_version("gridExtra", version = "2.3")
+remotes::install_version("stats", version = "4.3.2")
+remotes::install_version("lme4", version = "1.1.35.1")
+remotes::install_version("ggeffects", version = "1.4.0")
+remotes::install_version("segmented", version = "2.0.3")
+remotes::install_version("merTools", version = "0.6.2")
+remotes::install_version("lattice", version = "0.21.9")
+remotes::install_version("haven", version = "2.5.4")
+remotes::install_version("splines", version = "4.3.2")
+remotes::install_version("lspline", version = "1.0.0")
+remotes::install_version("GGally", version = "2.2.1")
+remotes::install_version("lmerTest", version = "3.1.3")
+remotes::install_version("car", version = "3.1.2")
+remotes::install_version("lmtest", version = "0.9.40")

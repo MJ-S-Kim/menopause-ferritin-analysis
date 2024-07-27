@@ -1,16 +1,4 @@
-library(lme4)
-library(ggeffects)
-library(segmented)
-library(merTools)
-library(lattice)
-library(haven)
 library(tidyverse)
-library('GGally')
-library(lmerTest)
-library(car)
-library(lmtest)
-library('GGally')
-library(MASS)
 
 
 #######################
