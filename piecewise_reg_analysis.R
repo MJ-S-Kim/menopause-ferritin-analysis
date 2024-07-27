@@ -14,7 +14,7 @@ for(var in vars){
 }
 final_results <- results[-1,]
 
-write.csv(final_results, "C:/Users/smcuser/Desktop/FMP/piecewise_result.csv")
+write.csv(final_results, "result/piecewise_result.csv")
 
 ## Plot
 p_hb <- linear_spline_plot(df, "hb", "Hemoglobin")
@@ -25,7 +25,7 @@ p_transferrin_sat <- linear_spline_plot(df, "transferrin_sat", "Transferrin satu
 
 
 # Save the plot as tiff
-tiff("C:/Users/smcuser/Desktop/FMP/output.tiff", width = 10, height = 15, units = "in", res = 300)
+tiff("result/output.tiff", width = 10, height = 15, units = "in", res = 300)
 grid.arrange(p_hb, p_iron, p_tibc, p_transferrin_sat, p_fer, ncol = 2, nrow = 3)
 dev.off()
 

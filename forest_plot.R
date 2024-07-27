@@ -118,6 +118,6 @@ grob_5yrs <- grid.grabExpr(print(p_5yrs))
 combined_grobs <- arrangeGrob(grob_baseline, grob_5yrs, ncol = 2)
 
 # Save the combined plot to a TIFF file
-tiff("combined_forestplot.tiff", width = 12, height = 6, units = "in", res = 300)
+tiff("result/combined_forestplot.tiff", width = 12, height = 6, units = "in", res = 300)
 grid.draw(combined_grobs)
 dev.off()

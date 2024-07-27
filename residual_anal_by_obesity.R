@@ -162,8 +162,8 @@ colnames(baseline_result0) <- c("Variable","-","Group1","Group2","Group3","p_val
 baseline_result1<-baseline_result1[-1,]
 baseline_result0<-baseline_result0[-1,]
 
-write.csv(baseline_result1, "baseline_result_obesity1.csv", row.names = F)
-write.csv(baseline_result0, "baseline_result_obesity0.csv", row.names = F)
+write.csv(baseline_result1, "result/baseline_result_obesity1.csv", row.names = F)
+write.csv(baseline_result0, "result/baseline_result_obesity0.csv", row.names = F)
 
 
 #############################
@@ -246,7 +246,7 @@ res_hba1c1 <- cbind("hba1c", anova_result(df_y5_obesity1$hba1c, df_y5_obesity1$g
 tb_diabetes0 <- table(df_y5_obesity0$diabetes, df_y5_obesity0$group)
 res_diabete0 <- cbind("Diabetes", row.names(tb_diabetes0), chisq_test_count_percent(tb_diabetes0))
 #gluc
-res_gluc0 <- cbind("Gluc", anova_result(df_y5_obesity0$gluc, df_y5_obesity0group))
+res_gluc0 <- cbind("Gluc", anova_result(df_y5_obesity0$gluc, df_y5_obesity0$group))
 #hba1c
 res_hba1c0 <- cbind("hba1c", anova_result(df_y5_obesity0$hba1c, df_y5_obesity0$group))
 
@@ -314,8 +314,8 @@ colnames(post_meno_y5_result0) <- c("Variable","-","Group1","Group2","Group3","p
 post_meno_y5_result1<-post_meno_y5_result1[-1,]
 post_meno_y5_result0<-post_meno_y5_result0[-1,]
 
-write.csv(post_meno_y5_result1, "post_meno_y5_result_obesity1.csv", row.names = F)
-write.csv(post_meno_y5_result0, "post_meno_y5_result_obesity0.csv", row.names = F)
+write.csv(post_meno_y5_result1, "result/post_meno_y5_result_obesity1.csv", row.names = F)
+write.csv(post_meno_y5_result0, "result/post_meno_y5_result_obesity0.csv", row.names = F)
 
 
 

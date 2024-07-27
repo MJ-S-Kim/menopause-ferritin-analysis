@@ -33,12 +33,6 @@ plot(log(df_model_baseline$transferrin_sat), df_model_baseline$log_fer,
 # Add the regression line to the plot
 abline(fit, col="red")
 
-## residual distribution
-boxplot(df_model_baseline$residual)
-qplot(df_model_baseline$residual, geom = "density")
-
-ggplot(data = df_model_baseline) + geom_point(aes(x = log(transferrin_sat), y = log_fer, color = group, shape = group)) + 
-  geom_abline(intercept = coef(fit)[1], slope = coef(fit)[2], color = "red")
 
 ##### Set groups based on the residual
 df_model_baseline <- df_model_baseline %>% 
@@ -46,6 +40,14 @@ df_model_baseline <- df_model_baseline %>%
          group = case_when(residual <= - sd(residual) ~ "Group1",
                            residual <= sd(residual) ~ "Group2",
                            residual > sd(residual) ~ "Group3"))
+
+
+## residual distribution
+boxplot(df_model_baseline$residual)
+qplot(df_model_baseline$residual, geom = "density")
+
+ggplot(data = df_model_baseline) + geom_point(aes(x = log(transferrin_sat), y = log_fer, color = group, shape = group)) + 
+  geom_abline(intercept = coef(fit)[1], slope = coef(fit)[2], color = "red")
 
 
 
@@ -99,7 +101,7 @@ for(result in res_list){
 colnames(baseline_result) <- c("Variable","-","Group1","Group2","Group3","p_value")
 
 baseline_result<-baseline_result[-1,]
-write.csv(baseline_result, "baseline_result.csv", row.names = F)
+write.csv(baseline_result, "result/baseline_result.csv", row.names = F)
 
 #############################
 ### prediction with fmp == 5
@@ -126,6 +128,13 @@ plot(log(df_y5$transferrin_sat), df_y5$log_fer,
 abline(fit, col="red")
 
 
+##### Set groups based on the residual
+df_y5 <- df_y5 %>% 
+  mutate(pred_fer = fitted(fit), residual = resid(fit),
+         group = case_when(residual <= - sd(residual) ~ "Group1",
+                           residual <= sd(residual) ~ "Group2",
+                           residual > sd(residual) ~ "Group3"))
+
 ## residual distribution
 boxplot(df_y5$residual)
 qplot(df_y5$residual, geom = "density")
@@ -133,13 +142,6 @@ qplot(df_y5$residual, geom = "density")
 ggplot(data = df_y5) + geom_point(aes(x = log(transferrin_sat), y = log_fer, color = group, shape = group)) +
   geom_abline(intercept = coef(fit)[1], slope = coef(fit)[2], color = "red")
 
-
-##### Set groups based on the residual
-df_y5 <- df_y5 %>% 
-  mutate(pred_fer = fitted(fit), residual = resid(fit),
-         group = case_when(residual <= - sd(residual) ~ "Group1",
-                           residual <= sd(residual) ~ "Group2",
-                           residual > sd(residual) ~ "Group3"))
 
 ##### Metabolic disease analysis by residual groups
 ## hypertension related
@@ -190,6 +192,6 @@ for(result in res_list){
 }
 colnames(post_meno_y5_result) <- c("Variable","-","Group1","Group2","Group3","p_value")
 
-post_meno_y5_result<-post_meno_y5_result[-1,]
-write.csv(post_meno_y5_result, "post_meno_y5_result.csv", row.names = F)
+post_meno_y5_result <- post_meno_y5_result[-1,]
+write.csv(post_meno_y5_result, "result/post_meno_y5_result.csv", row.names = F)
 
