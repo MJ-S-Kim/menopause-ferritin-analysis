@@ -10,7 +10,7 @@ calculate_ci <- function(proportion, n) {
 }
 
 
-create_forest_plot <- function(labeltext, data_matrix, title) {
+create_forest_plot <- function(labeltext, data_matrix, title, graph_pos=3) {
   # Remove NA values from the range calculation
   valid_data <- na.omit(c(data_matrix[, "Lower"], data_matrix[, "Upper"]))
   
@@ -34,7 +34,7 @@ create_forest_plot <- function(labeltext, data_matrix, title) {
       title = gpar(cex = 1.5)
     ),
     col = fpColors(box = "black", line = "black", summary = "black"),
-    graph.pos = 2,
+    graph.pos = graph_pos,
     xticks = x_ticks  # Adjust x-axis tick intervals
   )
 }

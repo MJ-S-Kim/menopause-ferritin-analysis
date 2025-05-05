@@ -32,6 +32,15 @@ mean_baseline <- c(17/321, 90/1262, 28/302, NA, NA,  # Hypertension
                    46/321, 199/1262, 63/302, NA, NA)  # Obesity
 n_baseline <- c(321, 1262, 302, NA, NA, 321, 1262, 302, NA, NA, 321, 1262, 302, NA, NA, 321, 1262, 302, NA, NA, 321, 1262, 302, NA, NA)
 
+# p-values: Chisquare test
+p_values_baseline <- c('= 0.0697', NA, NA, NA, NA,
+                       '= 0.0065', NA, NA, NA, NA,
+                       '< 0.001', NA, NA, NA, NA,
+                       '< 0.001', NA, NA, NA, NA,
+                       '< 0.001', NA, NA, NA, NA)
+p_label <- ifelse(is.na(p_values_baseline), "", paste0("p ", formatC(p_values_baseline, format = "f", digits = 4)))
+
+
 
 
 # Calculate CIs for total dataset
@@ -51,7 +60,8 @@ data_matrix_baseline <- cbind(mean_baseline, lower_baseline, upper_baseline)
 
 
 # Create the text labels
-labeltext <- matrix(c(variables, groups), ncol=2, byrow=FALSE)
+labeltext <- matrix(c(variables, groups, p_label), ncol=3, byrow=FALSE)
+colnames(labeltext) <- c("Variable", "Group", "P value")
 
 # Add column names
 colnames(data_matrix_baseline) <- c("Mean", "Lower", "Upper")
@@ -75,6 +85,14 @@ mean_5yrs <- c(10/84, 51/399, 13/84, NA, NA,  # Hypertension
 n_5yrs <- c(84, 399, 84, NA, NA, 84, 399, 84, NA, NA, 84, 399, 84, NA, NA, 84, 399, 84, NA, NA, 84, 399, 84, NA, NA)
 
 
+# p-values: Chisquare test
+p_values_baseline <- c('= 0.7565', NA, NA, NA, NA,
+                       '= 0.3076', NA, NA, NA, NA,
+                       '= 0.3289', NA, NA, NA, NA,
+                       '= 0.0015', NA, NA, NA, NA,
+                       '= 0.0023', NA, NA, NA, NA)
+p_label <- ifelse(is.na(p_values_baseline), "", paste0("p ", formatC(p_values_baseline, format = "f", digits = 4)))
+
 
 # Calculate CIs for total dataset
 ci_5yrs <- t(sapply(1:length(mean_5yrs), function(i) {
@@ -93,8 +111,8 @@ data_matrix_5yrs <- cbind(mean_5yrs, lower_5yrs, upper_5yrs)
 
 
 # Create the text labels
-labeltext <- matrix(c(variables, groups), ncol=2, byrow=FALSE)
-
+labeltext <- matrix(c(variables, groups, p_label), ncol=3, byrow=FALSE)
+colnames(labeltext) <- c("Variable", "Group", "P value")
 # Add column names
 colnames(data_matrix_5yrs) <- c("Mean", "Lower", "Upper")
 
