@@ -1,5 +1,9 @@
 library(tidyverse)
 library(stats)
+library(geepack)
+library(emmeans)
+library(lme4)
+library(lmerTest)
 
 source('tb1/utils.R')
 
@@ -118,3 +122,53 @@ df %>%
 #`mean(n)` `median(n)` `min(n)` `max(n)`
 #  3.41           3        1      11
 
+
+
+
+
+#######################
+## GEE for hypertension, diabetes and lipid-lowering med use
+#######################
+
+df_model_baseline <- df_model_baseline %>% mutate(menopause_stage = 1)
+df_model_index <- df_model_index %>% mutate(menopause_stage = 2)
+df_model_max <- df_model_max %>% mutate(menopause_stage = 3)
+
+df_gee <- rbind(df_model_baseline, df_model_index, df_model_max) %>% 
+  mutate(menopause_stage = factor(menopause_stage, levels = c(1,2,3),
+                                  labels = c("pre", "around", "post")))
+
+
+## hypertension
+gee_htn <- geeglm(hypertension ~ menopause_stage,
+                  id = patient_id,
+                  data = df_gee,
+                  family = binomial(link = "logit"),
+                  corstr = "exchangeable")
+
+emmeans(gee_htn, pairwise ~ menopause_stage, adjust = "bonferroni")
+
+## diabetes
+gee_db <- geeglm(diabetes ~ menopause_stage,
+                 id = patient_id,
+                 data = df_gee,
+                 family = binomial(link = "logit"),
+                 corstr = "exchangeable")
+
+emmeans(gee_db, pairwise ~ menopause_stage, adjust = "bonferroni")
+summary(gee_db)
+## lipid-lowering med use
+gee_hyp_med <- geeglm(med_hyperlipidemia ~ menopause_stage,
+                      id = patient_id,
+                      data = df_gee,
+                      family = binomial(link = "logit"),
+                      corstr = "exchangeable")
+
+emmeans(gee_hyp_med, pairwise ~ menopause_stage, adjust = "bonferroni")
+
+##############################
+## ferritin level comparison
+##############################
+
+lmer_fer <- lmer(fer ~ menopause_stage + (1|patient_id),data = df_gee)
+summary(lmer_fer)
