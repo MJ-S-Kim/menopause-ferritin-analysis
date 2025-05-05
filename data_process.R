@@ -121,3 +121,11 @@ dim(last_visit)
 
 write.csv(df, "C:/Users/smcuser/Desktop/FMP/data/df.csv")
 
+
+## number of visits
+dim(df)
+n_count_visit <- df %>% group_by(fmp) %>% 
+  summarise(n = n())
+
+write.csv(n_count_visit, "C:/Users/smcuser/Desktop/FMP/results/n_count_visit.csv")
+
