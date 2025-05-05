@@ -70,13 +70,18 @@ res_hba1c <- cbind("hba1c", anova_result(df_model_baseline$hba1c, df_model_basel
 tb_hyperlipidemia <- table(df_model_baseline$hyperlipidemia, df_model_baseline$group)
 res_hyperlipidemia <- cbind("Hyperlipidemia", row.names(tb_hyperlipidemia), chisq_test_count_percent(tb_hyperlipidemia))
 #cholesterol
-res_tchol <- cbind("Total cholesterol", anova_result(df_model_baseline$tchol, df_model_baseline$group))
+res_tchol <- cbind("Total cholesterol", anova_result(df_model_baseline$tchol, group, data = df_model_baseline))
 #ldl
-res_ldl <- cbind("LDL", anova_result(df_model_baseline$ldl, df_model_baseline$group))
+res_ldl <- cbind("LDL", anova_result(df_model_baseline$ldl, group, data = df_model_baseline))
+#sensitivity analysis for med usage
+adjusted_ldl <- df_model_baseline %>% 
+  mutate(adjusted_ldl = case_when(med_hyperlipidemia == 1 ~ ldl/0.7,
+                                  med_hyperlipidemia == 0 ~ ldl))
+res_adjusted_ldl <- cbind("adjusted LDL", anova_result(adjusted_ldl$adjusted_ldl, group, data = adjusted_ldl))
 #hdl
-res_hdl <- cbind("HDL", anova_result(df_model_baseline$hdl, df_model_baseline$group))
+res_hdl <- cbind("HDL", anova_result(df_model_baseline$hdl, group, data = df_model_baseline))
 #tg
-res_tg <- cbind("TG", anova_result(df_model_baseline$tg, df_model_baseline$group))
+res_tg <- cbind("TG", anova_result(df_model_baseline$tg, group, data = df_model_baseline))
 
 ## obesity related
 # obesity
@@ -91,9 +96,9 @@ res_waist <- cbind("Waist", anova_result(df_model_baseline$waist, df_model_basel
 tb_fatty_liver <- table(df_model_baseline$usgab_fatty_liver, df_model_baseline$group)
 res_fatty_liver <- cbind("Fatty liver", row.names(tb_fatty_liver), chisq_test_count_percent(tb_fatty_liver))
 
-res_list <- list(res_hypertension, res_diabetes, res_gluc, res_hba1c, res_hyperlipidemia, res_tchol, res_ldl,
+res_list <- list(res_hypertension, res_diabetes, res_gluc, res_hba1c, res_hyperlipidemia, res_tchol, res_ldl, res_adjusted_ldl,
                  res_hdl, res_tg, res_obesity, res_bmi, res_waist,res_fatty_liver)
-baseline_result <- NA
+
 for(result in res_list){
   result <- as.matrix(result)
   baseline_result <- rbind(baseline_result, result)
@@ -161,13 +166,18 @@ res_hba1c <- cbind("hba1c", anova_result(df_y5$hba1c, df_y5$group))
 tb_hyperlipidemia <- table(df_y5$hyperlipidemia, df_y5$group)
 res_hyperlipidemia <- cbind("Hyperlipidemia", row.names(tb_hyperlipidemia), chisq_test_count_percent(tb_hyperlipidemia))
 #cholesterol
-res_tchol <- cbind("Total cholesterol", anova_result(df_y5$tchol, df_y5$group))
+res_tchol <- cbind("Total cholesterol", anova_result(df_y5$tchol, group, data = df_y5))
 #ldl
-res_ldl <- cbind("LDL", anova_result(df_y5$ldl, df_y5$group))
+res_ldl <- cbind("LDL", anova_result(df_y5$ldl, group, data = df_y5))
+#sensitivity analysis for med usage
+adjusted_ldl_5y <- df_y5 %>% 
+  mutate(adjusted_ldl = case_when(med_hyperlipidemia == 1 ~ ldl/0.7,
+                                  med_hyperlipidemia == 0 ~ ldl))
+res_adjusted_ldl <- cbind("adjusted LDL", anova_result(adjusted_ldl_5y$adjusted_ldl, group, data = adjusted_ldl_5y))
 #hdl
-res_hdl <- cbind("HDL", anova_result(df_y5$hdl, df_y5$group))
+res_hdl <- cbind("HDL", anova_result(df_y5$hdl, group, data = df_y5))
 #tg
-res_tg <- cbind("TG", anova_result(df_y5$tg, df_y5$group))
+res_tg <- cbind("TG", anova_result(df_y5$tg, group, data = df_y5))
 
 ## obesity related
 # obesity
@@ -182,7 +192,7 @@ res_waist <- cbind("Waist", anova_result(df_y5$waist, df_y5$group))
 tb_fatty_liver <- table(df_y5$usgab_fatty_liver, df_y5$group)
 res_fatty_liver <- cbind("Fatty liver", row.names(tb_fatty_liver), chisq_test_count_percent(tb_fatty_liver))
 
-res_list <- list(res_hypertension, res_diabetes, res_gluc, res_hba1c, res_hyperlipidemia, res_tchol, res_ldl,
+res_list <- list(res_hypertension, res_diabetes, res_gluc, res_hba1c, res_hyperlipidemia, res_tchol, res_ldl, res_adjusted_ldl,
                  res_hdl, res_tg, res_obesity, res_bmi, res_waist, res_fatty_liver)
 
 post_meno_y5_result <- NA
