@@ -205,19 +205,3 @@ colnames(post_meno_y5_result) <- c("Variable","-","Group1","Group2","Group3","p_
 post_meno_y5_result <- post_meno_y5_result[-1,]
 write.csv(post_meno_y5_result, "result/post_meno_y5_result.csv", row.names = F)
 
-
-##############################
-### Scatter plot
-##############################
-
-library(gridExtra)
-library(grid)
-
-# Arrange the plots side by side
-combined_grobs <- arrangeGrob(p_baseline, p_5yrs, ncol = 2)
-
-
-# Save the combined plot to a TIFF file
-tiff("C:/Users/smcuser/Desktop/FMP/results/image/iron/combined_scatterplot.tiff", width = 12, height = 6, units = "in", res = 300)
-grid::grid.draw(combined_grobs)
-dev.off()
